@@ -1,0 +1,51 @@
+import camion.*
+import cosas.*
+
+describe "Camiones" {
+
+  method initialize(){
+    camion.cargar(bumblebee)
+    camion.cargar(ladrillos)
+
+  }
+  test "se carga en el camion a bumblebee y paquete de ladrillos" {
+    
+
+    assert.equals(#{bumblebee,ladrillos}, camion.cosas())
+    }
+
+    test "se quiere descargar  el paquete de ladrillos  del camion (bumblebee , paquete de ladrillos)" {
+      
+      camion.descargar(ladrillos)
+
+      assert.equals(#{bumblebee}, camion.cosas())
+    }
+
+    test "verifica si el peso de cada cosa de la carga es par"{
+      assert.that(camion.todoPesoPar())
+    }
+
+    test "vereficia el peso total del camion  tara + (bumblebee,paquete de ladrillos)" {
+      
+      assert.equals(0, camion.pesoTotal())
+    }
+    test "verifica si el camion esta excedido de peso" {
+      assert.that(camion.excedidoDePeso())
+    }
+
+    test "devuelve los objetos  de la carga que superan el nivel de peligrosidad " {
+      
+      assert.equals(#{}, camion.objetosQueSuperanPeligrosidad(10))
+    }
+
+    test "devuelve las cosas de la carga que superan la peligrosidad de la cosa dada" {
+      
+      assert.equals(#{}, camion.objetosMasPeligrososQue(bumblebee))
+    }
+
+    test "verifica si el camion puede circular en la ruta" {
+
+      assert.that(camion.puedeCircularEnRuta(50))
+      
+    }
+}
