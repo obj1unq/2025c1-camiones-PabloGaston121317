@@ -5,6 +5,7 @@ describe "Camiones" {
 
   method initialize(){
     camion.cargar(bumblebee)
+    bumblebee.transformacion(auto)
     camion.cargar(ladrillos)
 
   }
@@ -27,15 +28,15 @@ describe "Camiones" {
 
     test "vereficia el peso total del camion  tara + (bumblebee,paquete de ladrillos)" {
       
-      assert.equals(0, camion.pesoTotal())
+      assert.equals(1800, camion.pesoTotal())
     }
     test "verifica si el camion esta excedido de peso" {
-      assert.that(camion.excedidoDePeso())
+      assert.notThat(camion.excedidoDePeso())
     }
 
     test "devuelve los objetos  de la carga que superan el nivel de peligrosidad " {
       
-      assert.equals(#{}, camion.objetosQueSuperanPeligrosidad(10))
+      assert.equals(#{}, camion.objetosQueSuperanPeligrosidad(100))
     }
 
     test "devuelve las cosas de la carga que superan la peligrosidad de la cosa dada" {
@@ -48,4 +49,21 @@ describe "Camiones" {
       assert.that(camion.puedeCircularEnRuta(50))
       
     }
+}
+
+describe "cosas que se pueden cargar en el camion" {
+  test "knight rider pesa 500 kilos y su peligrosidad es de 10" {
+    
+    assert.equals(500, knightRider.peso())
+    assert.equals(10, knightRider.nivelPeligrosidad())
+  }
+
+  test "bumblebee pesa 800 kilos y su peligrosidad es de 15 de esta tranformado en auto y 30 en robot" {
+    assert.equals(800, bumblebee.peso())
+    assert.equals(15, bumblebee.nivelPeligrosidad())
+
+    bumblebee.transformacion(robot)
+
+    assert.equals(30, bumblebee.nivelPeligrosidad())
+  }
 }

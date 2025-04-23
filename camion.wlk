@@ -27,7 +27,12 @@ object camion {
 
 	method pesoTotal(){
 
-		return tara + cosas.sum({cosa=>cosa.peso()})
+		return tara + self.pesoDeLaCarga()
+	}
+
+	method pesoDeLaCarga(){
+
+		return cosas.sum({cosa => cosa.peso()})
 	}
 
 	method todoPesoPar(){

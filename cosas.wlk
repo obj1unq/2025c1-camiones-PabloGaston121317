@@ -1,6 +1,8 @@
 object knightRider {
 	method peso() = 500
 	method nivelPeligrosidad() = 10
+	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
+	method pesoEsPar() = self.peso().even()
 }
 
 object bumblebee {
@@ -11,6 +13,8 @@ object bumblebee {
 	method transformacion(_transformacion){
 		transformacion = _transformacion
 	}
+	method pesoEsPar() = self.peso().even()
+	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
 }
 
 object robot{
@@ -29,6 +33,8 @@ object ladrillos{
 	method cantLadrillos(_cantLadrillos){
 		cantLadrillos = _cantLadrillos
 	}
+	method pesoEsPar() = self.peso().even()
+	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
 }
 
 object arenaGranel{
@@ -39,6 +45,8 @@ object arenaGranel{
 		peso = _peso
 	} 
 	method nivelPeligrosidad() = 1
+	method pesoEsPar() = self.peso().even()
+	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
 }
 
 object bateriaAntiaerea{
@@ -50,6 +58,8 @@ object bateriaAntiaerea{
 	method tieneMisiles(_tieneMisiles){
 		tieneMisiles = _tieneMisiles
 	}
+	method pesoEsPar() = self.peso().even()
+	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
 
 //	method cargarMisiles() descargarMisiles crear metodos de carga  y descarga
 }
@@ -75,10 +85,40 @@ object contenedor {
 
 		return cosas.map({cosa => cosa.nivelPeligrosidad()})
 	}
+	method pesoEsPar() = self.peso().even()
+	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
 }
 
-object residuos{}
+object residuos{
+	var pesoResiduos = 0
 
-object embalaje{}
+	method peso() = pesoResiduos
+
+	method peso(_peso){
+		pesoResiduos = _peso
+	} 
+
+	method nivelPeligrosidad() = 200
+	method pesoEsPar() = self.peso().even()
+	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
+}
+
+object embalaje{
+	var cosa = null
+	method peso(){
+		return cosa.peso()
+	}
+
+	method nivelPeligrosidad(){
+
+		return cosa.nivelPeligrosidad() / 2
+	}
+
+	method embalar(obj){
+		cosa = obj
+	}
+	method pesoEsPar() = self.peso().even()
+	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
+}
 
 
