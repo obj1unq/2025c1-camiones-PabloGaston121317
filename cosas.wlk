@@ -3,6 +3,7 @@ object knightRider {
 	method nivelPeligrosidad() = 10
 	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
 	method pesoEsPar() = self.peso().even()
+	method bulto() = 1
 }
 
 object bumblebee {
@@ -15,6 +16,7 @@ object bumblebee {
 	}
 	method pesoEsPar() = self.peso().even()
 	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
+	method bulto() = 2
 }
 
 object robot{
@@ -35,6 +37,15 @@ object ladrillos{
 	}
 	method pesoEsPar() = self.peso().even()
 	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
+	method bulto() = self.cantDeBultoPor(cantLadrillos)
+
+	method cantDeBultoPor(ladrillos){
+		if(ladrillos <= 100)
+			return 1
+			else if(ladrillos.between(101, 300))
+				return 2
+				else return 3
+	}
 }
 
 object arenaGranel{
@@ -47,27 +58,35 @@ object arenaGranel{
 	method nivelPeligrosidad() = 1
 	method pesoEsPar() = self.peso().even()
 	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
+	method bulto() = 1
 }
 
 object bateriaAntiaerea{
-	var tieneMisiles = true
+	var misilesCargados = true
 
-	method nivelPeligrosidad() = if (self.tieneMisiles()) 100 else 0 
-	method peso() = if (self.tieneMisiles()) 300 else 200
-	method tieneMisiles() = tieneMisiles
-	method tieneMisiles(_tieneMisiles){
-		tieneMisiles = _tieneMisiles
+	method nivelPeligrosidad() = if (self.misilesCargados()) 100 else 0 
+	method peso() = if (self.misilesCargados()) 300 else 200
+	method misilesCargados() = misilesCargados
+	method cargarMisiles(){
+		misilesCargados = true
+	}
+	method descargarMisiles(){
+		misilesCargados = false
 	}
 	method pesoEsPar() = self.peso().even()
 	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
+	method bulto() = if (misilesCargados) 2 else 1
 
-//	method cargarMisiles() descargarMisiles crear metodos de carga  y descarga
+
 }
 
 object contenedor {
 	const cosas = #{}
 	const pesoBase = 100
 	
+	method cargar(cosa){
+		cosas.add(cosa)
+	}
 	method peso() =  pesoBase + self.pesoTotal()
 	method pesoTotal(){
 
@@ -101,6 +120,7 @@ object residuos{
 	method nivelPeligrosidad() = 200
 	method pesoEsPar() = self.peso().even()
 	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
+	method bulto() = 1
 }
 
 object embalaje{
@@ -119,6 +139,7 @@ object embalaje{
 	}
 	method pesoEsPar() = self.peso().even()
 	method superaPeligrosidad(nivel) = self.nivelPeligrosidad() > nivel
+	method bulto() = 1
 }
 
 

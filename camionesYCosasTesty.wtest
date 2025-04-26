@@ -66,4 +66,81 @@ describe "cosas que se pueden cargar en el camion" {
 
     assert.equals(30, bumblebee.nivelPeligrosidad())
   }
+
+  test "el paquete de ladrillos pesa  2 kilos por cada uno de ellos, este paquete tiene 10 ,  pesa 20 kilos" {
+    ladrillos.cantLadrillos(10)
+    
+    assert.equals(20, ladrillos.peso())
+  }
+
+  test "la arena a granel pesa 100 kg y su peligrosidad es de 1" {
+    arenaGranel.peso(100)
+
+    assert.equals(100, arenaGranel.peso())
+    assert.equals(1, arenaGranel.nivelPeligrosidad())
+  }
+
+  test "la bateria antiaerea pesa 300 kilos si esta con los misiles cargados sino 200, con peligrosidad 100 si tiene misiles sino 0" {
+    bateriaAntiaerea.cargarMisiles()
+
+    assert.equals(300, bateriaAntiaerea.peso())
+    assert.equals(100, bateriaAntiaerea.nivelPeligrosidad())
+
+    bateriaAntiaerea.descargarMisiles()
+
+    assert.equals(200, bateriaAntiaerea.peso())
+    assert.equals(0, bateriaAntiaerea.nivelPeligrosidad())
+  }
+
+  test "el contenedor portuario tiene 4 LADRILLOS  y una bateriaAntiaerea con Misiles"{
+    ladrillos.cantLadrillos(4)
+    contenedor.cargar(ladrillos)
+    bateriaAntiaerea.cargarMisiles()
+    contenedor.cargar(bateriaAntiaerea)
+
+    assert.equals(408, contenedor.peso())
+    assert.equals(100, contenedor.nivelPeligrosidad())
+  } 
+
+  test "los residuos radioactivos  su peso es variable (100) y su peligrosidad es de 200" {
+    
+    residuos.peso(100)
+
+    assert.equals(100, residuos.peso())
+    assert.equals(200, residuos.nivelPeligrosidad())
+  }
+  
+  test "el embalaje de seguridad tiene el mismo peso del objetos que proteja  y si peligrosidad es la mitad, knigth rider 500 peligrosidad 5" {
+    embalaje.embalar(knightRider)
+
+    assert.equals(500, embalaje.peso())
+    assert.equals(5, embalaje.nivelPeligrosidad())
+  }
+
+}
+
+describe "agregados al camion" {
+  test "indica si el peso de alguna cosa de la carga que tiene el camion esta entre el intervalo" {
+    camion.cargar(knightRider)
+    camion.cargar(bumblebee)
+    
+    assert.that(camion.tieneAlgoQuePesaEntre(300,500))
+  }
+
+  test "devuelve la cosa mas pesada de la carga del camion" {
+    camion.cargar(knightRider)
+    camion.cargar(bumblebee)
+
+    assert.equals(bumblebee, camion.cosaMasPesada())
+    
+  }
+
+  test "devuelve una lista con los pesos de las cosas de la carga del camion" {
+
+    camion.cargar(bumblebee)
+    camion.cargar(knightRider)
+
+    assert.equals([800,500], camion.pesos())
+    
+  }
 }
